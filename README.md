@@ -46,8 +46,9 @@ Then define Aspose.Imaging for Java API dependency in your pom.xml as follows:
         <artifactId>aspose-imaging</artifactId>
         <version>25.4</version>
    </dependency>
+   <!-- Actually the following artifact is Openize.Openize.Heic but built and signed by Aspose and placed in Aspose repo -->
     <dependency>
-		<groupId>openize</groupId>
+		<groupId>com.aspose</groupId>
 		<artifactId>openize-heic</artifactId>
 		<version>25.4</version>
 	</dependency>
