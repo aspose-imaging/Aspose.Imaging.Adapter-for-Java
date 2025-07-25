@@ -5,8 +5,11 @@
 package com.aspose.imaging.heic.adapter;
 
 import com.aspose.imaging.*;
-import com.aspose.imaging.internal.Exceptions.NotSupportedException;
 import openize.heic.decoder.HeicImageFrame;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -44,12 +47,12 @@ public class HEICDataLoader implements IRasterImageArgb32PixelLoader
      * @param rectangle       The rectangle to load raw data from.
      * @param rawDataSettings The raw data settings to use for loaded data. Note if data is not in the format specified then data conversion will be performed.
      * @param rawDataLoader   The raw data loader.
-     * @throws NotSupportedException It does not support.
+     * @throws UnsupportedOperationException It does not support.
      */
     @Override
     public final void loadRawData(Rectangle rectangle, RawDataSettings rawDataSettings, IPartialRawDataLoader rawDataLoader)
     {
-        throw new NotSupportedException();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -91,8 +94,21 @@ public class HEICDataLoader implements IRasterImageArgb32PixelLoader
     @Override
     public final void loadPartialArgb32Pixels(Rectangle rectangle, IPartialArgb32PixelLoader partialPixelLoader)
     {
-        partialPixelLoader.process(rectangle, this.image.getInt32Array(openize.heic.decoder.PixelFormat.Argb32,
-                        new openize.heic.decoder.Rectangle(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight())),
+        final long threadID = Thread.currentThread().getId();
+        Rectangle rec = maps.get(threadID);
+        if (rec != null && (rectangle.getWidth() != image.getWidth() || rectangle.getHeight() != image.getHeight()))
+        {
+            maps.remove(threadID);
+            throw new UnsupportedOperationException("OutOfMemory: HEIC Adapter does not support the partial processing.");
+        }
+        maps.put(threadID, rectangle);
+
+        int[] argbPixels = this.image.getInt32Array(openize.heic.decoder.PixelFormat.Argb32,
+                new openize.heic.decoder.Rectangle(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight()), null);
+        partialPixelLoader.process(rectangle, argbPixels,
                 rectangle.getLocation(), new Point(rectangle.getRight(), rectangle.getBottom()));
+        maps.remove(threadID);
     }
+
+    private final Map<Long, Rectangle> maps = Collections.synchronizedMap(new HashMap<>());
 }

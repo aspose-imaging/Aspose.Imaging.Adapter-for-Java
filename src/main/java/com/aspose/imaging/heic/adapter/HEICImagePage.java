@@ -4,11 +4,7 @@
 
 package com.aspose.imaging.heic.adapter;
 
-import com.aspose.imaging.DataStreamSupporter;
-import com.aspose.imaging.IColorPalette;
-import com.aspose.imaging.Image;
-import com.aspose.imaging.RasterImage;
-import com.aspose.imaging.internal.Exceptions.NotSupportedException;
+import com.aspose.imaging.*;
 import com.aspose.imaging.system.io.Stream;
 import openize.heic.decoder.HeicImageFrame;
 
@@ -119,14 +115,15 @@ public class HEICImagePage extends RasterImage
      * <p>
      * Updates the image dimensions.
      * </p>
-     * @exception NotSupportedException The resizing is unsupported feature.
-     * @param newWidth The new image width.
+     *
+     * @param newWidth  The new image width.
      * @param newHeight The new image height.
+     * @throws UnsupportedOperationException The resizing is unsupported feature.
      */
     @Override
     protected void updateDimensions(int newWidth, int newHeight)
     {
-        throw new NotSupportedException();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -134,8 +131,6 @@ public class HEICImagePage extends RasterImage
      * Caches the data and ensures no additional data loading will be performed from the underlying
      * {@link DataStreamSupporter#getDataStreamContainer()}.
      * </p>
-     *
-     * @throws NotSupportedException Not supported!
      */
     @Override
     public /*override*/ void cacheData()
@@ -149,13 +144,12 @@ public class HEICImagePage extends RasterImage
      * </p>
      *
      * @param rotateFlipType Type of the rotate flip.
-     * @throws NotSupportedException Not supported!
      * @see com.aspose.imaging.RotateFlipType
      */
     @Override
     public /*override*/ void rotateFlip(int rotateFlipType)
     {
-        throw new NotSupportedException();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -166,13 +160,13 @@ public class HEICImagePage extends RasterImage
      * @param ditheringMethod The dithering method.
      * @param bitsCount       The final bits count for dithering.
      * @param customPalette   The custom palette for dithering.
-     * @throws NotSupportedException Not supported!
+     * @throws UnsupportedOperationException Not supported!
      * @see com.aspose.imaging.DitheringMethod
      */
     @Override
     public /*override*/ void dither(int ditheringMethod, int bitsCount, IColorPalette customPalette)
     {
-        throw new NotSupportedException();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -181,11 +175,11 @@ public class HEICImagePage extends RasterImage
      * </p>
      *
      * @param stream The stream to save data to.
-     * @throws NotSupportedException Not supported!
+     * @throws UnsupportedOperationException Not supported!
      */
     @Override
     protected /*override*/ void saveData(Stream stream)
     {
-        throw new NotSupportedException();
+        throw new UnsupportedOperationException();
     }
 }

@@ -25,6 +25,8 @@ public class ImageStream implements IOStream, IDisposable
      */
     private final Stream stream;
 
+    private long streamLength;
+
     /**
      * <p>
      *     Creates an instance.
@@ -34,6 +36,7 @@ public class ImageStream implements IOStream, IDisposable
     public ImageStream(Stream stream)
     {
         this.stream = stream;
+        this.streamLength = stream.getLength();
     }
 
     /**
@@ -74,6 +77,7 @@ public class ImageStream implements IOStream, IDisposable
     public void write(byte[] bytes)
     {
         stream.write(bytes, 0, bytes.length);
+        this.streamLength = stream.getLength();
     }
 
     /**
@@ -88,6 +92,7 @@ public class ImageStream implements IOStream, IDisposable
     public void write(byte[] bytes, int offset, int length)
     {
         stream.write(bytes, offset, length);
+        this.streamLength = stream.getLength();
     }
 
     /**
@@ -139,7 +144,7 @@ public class ImageStream implements IOStream, IDisposable
     @Override
     public long getLength()
     {
-        return stream.getLength();
+        return this.streamLength;
     }
 
     /**
@@ -152,6 +157,7 @@ public class ImageStream implements IOStream, IDisposable
     public void setLength(long newLength)
     {
         stream.setLength(newLength);
+        this.streamLength = stream.getLength();
     }
 
     /**

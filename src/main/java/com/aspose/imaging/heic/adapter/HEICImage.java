@@ -7,7 +7,6 @@ package com.aspose.imaging.heic.adapter;
 import com.aspose.imaging.*;
 import com.aspose.imaging.heic.adapter.loader.HEICImageLoaderDescriptor;
 import com.aspose.imaging.heic.io.ImageStream;
-import com.aspose.imaging.internal.Exceptions.NotSupportedException;
 import com.aspose.imaging.system.io.Stream;
 import openize.heic.decoder.HeicImage;
 import openize.heic.decoder.HeicImageFrame;
@@ -220,8 +219,6 @@ public class HEICImage extends RasterCachedMultipageImage
      * <p>
      * Caches the data private.
      * </p>
-     *
-     * @throws NotSupportedException Not supported.
      */
     @Override
     public /*override*/ void cacheData()
@@ -235,12 +232,12 @@ public class HEICImage extends RasterCachedMultipageImage
      * </p>
      *
      * @param stream The stream to save data to.
-     * @throws NotSupportedException Not supported.
+     * @throws UnsupportedOperationException Not supported.
      */
     @Override
     protected /*override*/ void saveData(Stream stream)
     {
-        throw new NotSupportedException();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -250,11 +247,11 @@ public class HEICImage extends RasterCachedMultipageImage
      *
      * @param newWidth  The new image width.
      * @param newHeight The new image height.
-     * @throws NotSupportedException Not supported.
+     * @throws UnsupportedOperationException Not supported.
      */
     @Override
     protected /*override*/ void updateDimensions(int newWidth, int newHeight)
     {
-        throw new NotSupportedException();
+        throw new UnsupportedOperationException();
     }
 }
