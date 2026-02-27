@@ -6,7 +6,7 @@
 
     <groupId>com.aspose</groupId>
     <artifactId>aspose-imaging-heic-adapter</artifactId>
-    <version>25.8</version>
+    <version>26.3</version>
 	<name>Aspose.Imaging.HEIC.Adapter for Java</name>
 	<description>Aspose.Imaging.HEIC.Adapter Combines 2 products Aspose.Imaging and Openize.HEIC, this allows  to use the functions of both libraries as a single whole and expand export between formats HEIC format can be exported to all formats supported by Imaging, for example Png, Tiff, Pdf, Svg, Jpeg, Gif, Bmp, Emf, Wmf, J2k, Webp etc.</description>
 	<url>https://products.aspose.com/imaging/java</url>
@@ -22,7 +22,7 @@
         <url>publish/LICENSE.txt</url>
 	  </license>
     </licenses>
-	
+
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -53,19 +53,19 @@
 		<dependency>
             <groupId>com.aspose</groupId>
             <artifactId>aspose-imaging</artifactId>
-            <version>25.7</version>
+            <version>25.9</version>
         </dependency>
 		<dependency>
             <groupId>com.aspose</groupId>
             <artifactId>aspose-imaging</artifactId>
-            <version>25.7</version>
+            <version>25.9</version>
             <classifier>javadoc</classifier>
         </dependency>
 		<dependency>
             <!-- <groupId>com.aspose</groupId> -->
             <groupId>openize</groupId>
             <artifactId>openize-heic</artifactId>
-            <version>25.8</version>
+            <version>26.3</version>
         </dependency>
 	</dependencies>
 	
