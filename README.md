@@ -12,6 +12,11 @@ Aspose.Imaging.HEIC.Adapter for Java can be used to develop applications on Wind
 The MIT License (MIT)
 More details here [LICENSE.txt](publish/LICENSE.txt)
 
+## New Features & Enhancements in Version 26.5
+
+ - Updated Aspose.Imaging package to version 26.5+
+ - Updated Openize.Heic package to version 26.5+
+
 ## Getting Started
 
 Are you ready to give Aspose.Imaging.HEIC.Adapter for Java a try? 
@@ -44,31 +49,31 @@ Then define Aspose.Imaging for Java API dependency in your pom.xml as follows:
 	<dependency>
         <groupId>com.aspose</groupId>
         <artifactId>aspose-imaging</artifactId>
-        <version>26.3</version>
+        <version>26.5</version>
    	</dependency>
    <!-- Actually the following artifact is Openize.Openize.Heic but built and signed by Aspose and placed in Aspose repo -->
 	<dependency>
 		<groupId>com.aspose</groupId>
 		<artifactId>openize-heic</artifactId>
-		<version>26.3</version>
+		<version>26.5</version>
 	</dependency>
     <dependency>
         <groupId>com.aspose</groupId>
         <artifactId>aspose-imaging-heic-adapter</artifactId>
-        <version>26.3</version>
+        <version>26.5</version>
 	</dependency>
 
    <!-- if you need a documentation, please add the following dependency. For example it could be useful for IDE. -->
 	<dependency>
         <groupId>com.aspose</groupId>
         <artifactId>aspose-imaging</artifactId>
-        <version>26.3</version>
+        <version>26.5</version>
         <classifier>javadoc</classifier>
    	</dependency>
     <dependency>
         <groupId>com.aspose</groupId>
         <artifactId>aspose-imaging-heic-adapter</artifactId>
-        <version>26.3</version>
+        <version>26.5</version>
         <classifier>javadoc</classifier>
    	</dependency>
 </dependencies>
@@ -82,7 +87,7 @@ Get more information here:
  
 ## Product dependencies
 This product is dependent on :
-- [Aspose.Imaging Java is distributed under Aspose EULA license](https://www.conholdate.app/viewer/view/my6hZebP2Hvz3brV/aspose_end-user-license-agreement_2023-11-20.pdf.pdf);
+- [Aspose.Imaging Java is distributed under Aspose EULA license](https://files.conholdate.app/viewer/view/zV3aIXd5aa8FNkZWDa/aspose_end-user-license-agreement_2025-07-31.pdf);
 - [Openize.HEIC is distributed under Openize.HEIC license](https://github.com/openize-heic/Openize.HEIC-for-Java/blob/main/LICENSE);
 - [Openize.IsoBmff that is distributed under MIT License](https://github.com/openize-heic/Openize.HEIC-for-Java/blob/main/Openize.IsoBmff/LICENSE).
 

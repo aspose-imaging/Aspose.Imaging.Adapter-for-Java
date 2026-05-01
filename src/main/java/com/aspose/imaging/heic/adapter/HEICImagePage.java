@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2001-2025 Aspose Pty Ltd. All Rights Reserved.
+ * Copyright (c) 2001-2026 Aspose Pty Ltd.
+ * All Rights Reserved.
  */
 
 package com.aspose.imaging.heic.adapter;
@@ -18,13 +19,26 @@ import openize.heic.decoder.HeicImageFrame;
  */
 public class HEICImagePage extends RasterImage
 {
-
     /**
      * <p>
      * The frame
      * </p>
      */
     private final HeicImageFrame frame;
+
+    /**
+     * <p>
+     * The x resolution
+     * </p>
+     */
+    private double xResolution = ExifHelper.DefaultResolution;
+
+    /**
+     * <p>
+     * The y resolution
+     * </p>
+     */
+    private double yResolution = ExifHelper.DefaultResolution;
 
     /**
      * <p>
@@ -38,6 +52,20 @@ public class HEICImagePage extends RasterImage
     {
         this.frame = frame;
         this.setDataLoader(new HEICDataLoader(frame));
+        if (frame.Exif != null && frame.Exif.getRawBytes() != null)
+        {
+            try
+            {
+                this.setExifData(new com.aspose.imaging.exif.ExifData(frame.Exif.getRawBytes()));
+            }
+            catch(java.lang.RuntimeException ignore)
+            {
+                // Ignore this error
+            }
+        }
+
+        this.xResolution = ExifHelper.getRationalValue(frame.Exif, 282);
+        this.yResolution = ExifHelper.getRationalValue(frame.Exif, 283);
         this.updateContainer(container);
     }
 
@@ -97,19 +125,54 @@ public class HEICImagePage extends RasterImage
         return (int) this.frame.getHeight();
     }
 
+
     /**
      * <p>
      * Gets a value indicating whether this instance has alpha.
      * </p>Value:
      * {@code true} if this instance has alpha; otherwise, {@code false}.
-     *
      * @return a value indicating whether this instance has alpha.
      */
     @Override
-    public /*override*/ boolean hasAlpha()
-    {
-        return this.frame.hasAlpha();
-    }
+    public /*override*/ boolean hasAlpha() { return this.frame.hasAlpha(); }
+
+    /**
+     * <p>
+     * Gets the vertical resolution.
+     * </p>Value:
+     * The vertical resolution.
+     * @return the vertical resolution.
+     */
+    @Override
+    public /*override*/ double getVerticalResolution() { return this.yResolution; }
+
+    /**
+     * <p>
+     * Gets the horizontal resolution.
+     * </p>Value:
+     * The horizontal resolution.
+     * @return the horizontal resolution.
+     */
+    @Override
+    public /*override*/ double getHorizontalResolution() { return this.xResolution; }
+
+    /**
+     * <p>
+     * Gets the Exif data.
+     * </p>
+     * @return the Exif data.
+     */
+    @Override
+    public final com.aspose.imaging.exif.ExifData getExifData(){ return exifData; }
+    /**
+     * <p>
+     * Sets the Exif data.
+     * </p>
+     * @param value the Exif data.
+     */
+    @Override
+    public final void setExifData(com.aspose.imaging.exif.ExifData value){ exifData = value; }
+    private com.aspose.imaging.exif.ExifData exifData;
 
     /**
      * <p>

@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2001-2025 Aspose Pty Ltd. All Rights Reserved.
+ * Copyright (c) 2001-2026 Aspose Pty Ltd.
+ * All Rights Reserved.
  */
 
 package com.aspose.imaging.heic.adapter;
@@ -11,7 +12,9 @@ import com.aspose.imaging.system.io.Stream;
 import openize.heic.decoder.HeicImage;
 import openize.heic.decoder.HeicImageFrame;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -21,7 +24,7 @@ import java.util.Map;
  *
  * @see com.aspose.imaging
  */
-public class HEICImage extends RasterCachedMultipageImage
+public final class HEICImage extends RasterCachedMultipageImage
 {
 
     /**
@@ -36,12 +39,27 @@ public class HEICImage extends RasterCachedMultipageImage
      * </p>
      */
     private final HeicImage image;
+
     /**
      * <p>
      * The pages
      * </p>
      */
     private final HEICImagePage[] pages;
+
+    /**
+     * <p>
+     * The x resolution
+     * </p>
+     */
+    private final double xResolution;
+
+    /**
+     * <p>
+     * The y resolution
+     * </p>
+     */
+    private final double yResolution;
 
     /**
      * <p>
@@ -53,22 +71,30 @@ public class HEICImage extends RasterCachedMultipageImage
     public HEICImage(Stream stream)
     {
         this.image = HeicImage.load(new ImageStream(stream));
-        final Map<Long, HeicImageFrame> imageFrames = this.image.getFrames();
-        this.pages = new HEICImagePage[imageFrames.size()];
+        this.xResolution = ExifHelper.getRationalValue(this.image.getExif(), 282);
+        this.yResolution = ExifHelper.getRationalValue(this.image.getExif(), 283);
+        List<Map.Entry<Long, HeicImageFrame>> frames =
+                image.getFrames()
+                    .entrySet()
+                    .stream()
+                    .filter(f -> f.getValue().isImage())
+                    .collect(Collectors.toList());
+
+        this.pages = new HEICImagePage[frames.size()];
         final HeicImageFrame defaultFrame = this.image.getDefaultFrame();
         this.setDataLoader(new HEICDataLoader(defaultFrame));
         int i = 1;
         this.pages[0] = new HEICImagePage(defaultFrame, this);
-        if (imageFrames.size() > 1)
+        if (frames.size() > 1)
         {
-            for (HeicImageFrame frame : imageFrames.values())
+            for (Map.Entry<Long, HeicImageFrame> frame : frames)
             {
-                if (frame == defaultFrame)
+                if (frame.getValue() == defaultFrame)
                 {
                     continue;
                 }
 
-                this.pages[i] = new HEICImagePage(frame, this);
+                this.pages[i] = new HEICImagePage(frame.getValue(), this);
                 i++;
             }
         }
@@ -213,6 +239,44 @@ public class HEICImage extends RasterCachedMultipageImage
     public /*override*/ boolean hasAlpha()
     {
         return this.image.getDefaultFrame().hasAlpha();
+    }
+
+    /**
+     * <p>
+     * Gets the vertical resolution.
+     * </p>Value:
+     * The vertical resolution.
+     * @return the vertical resolution.
+     */
+    @Override
+    public /*override*/ double getVerticalResolution() { return this.yResolution; }
+
+    /**
+     * <p>
+     * Gets the horizontal resolution.
+     * </p>Value:
+     * The horizontal resolution.
+     * @return the horizontal resolution.
+     */
+    @Override
+    public /*override*/ double getHorizontalResolution() { return this.xResolution; }
+
+    /**
+     * <p>
+     * Gets the exif data.
+     * </p>Value:
+     * The exif data.
+     * @return the exif data.
+     */
+    @Override
+    public com.aspose.imaging.exif.ExifData getExifData()
+    {
+        if (this.pages[0] != null)
+        {
+            return this.pages[0].getExifData();
+        }
+
+        return null;
     }
 
     /**
